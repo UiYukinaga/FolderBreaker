@@ -112,13 +112,37 @@ def breakFolder(dir_path, parent_path):
 def breakAllFolder(parent_dir_path):
     if os.path.isdir(parent_dir_path):
         d_list = []
+
+        print('==================================')
+        print('     Launch "Folder Breaker"')
+        print('==================================')
+        print('Parent Directory: ')
+        print(parent_dir_path)
+        print('\n')
+
         for curDir, dirs, files in os.walk(parent_dir_path, topdown=False):
-            print('Directory Searching...')
-            print(curDir)
-            print(dirs)
-            print(files)
+            if curDir == parent_dir_path:
+                continue
+
+            print('Scanning for ' + curDir)
+            if len(dirs) > 0:
+                print('->Found {0} sub directories: '.format(len(dirs)))
+                print(dirs)
+            else:
+                print('->Sub directoty not found.')
+            
+            if len(files) > 0:
+                print('->Found {0} files: '.format(len(files)))
+                print(files)
+            else:
+                print('->Target file not found.')    
+            print('\n')
+
             d_list.append(curDir)
+
+        print('<Result Report>')
         print('Found', len(d_list) ,'Directories:')
+        
         for d_path in d_list:
             print(d_path)
 
@@ -136,6 +160,7 @@ def breakAllFolder(parent_dir_path):
 
 
 if __name__ == '__main__':
+    args = sys.argv
     parent_dir_path = args[1]
     if os.path.isdir(parent_dir_path):
         breakAllFolder(parent_dir_path)
